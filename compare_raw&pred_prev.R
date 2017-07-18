@@ -9,7 +9,7 @@ rm(list = ls())
 # ------------------------------------------- set up environment -------------------------------------------
 my_lib <- ("C:/Users/stearns7/Documents/R/win-library/3.3")
 .libPaths(my_lib)
-pacman::p_load(fields, data.table, magrittr, stringr, reshape2, ggplot2, readbulk, 
+pacman::p_load(fields, data.table, magrittr, stringr, reshape2, ggplot2, readbulk, devtools,
                dplyr, Amelia, plyr, rgdal, raster,  seegSDM, seegMBG, sp, rgeos, maptools, rgeos, rgdal)
 
 ras_dir <- 'C:/Users/stearns7/OneDrive - UW Office 365/ntds/LF/mbg_stuff/output_rasters/africa/2017_06_06_14_35_57/'
@@ -21,6 +21,13 @@ model2pts[,lf_prev_o:=lf_pos/N]
 
 logmodel2pts <- fread(file = paste0(ras_dir, 'log_raster_vals_to_original_data_pts.csv'), stringsAsFactors = F)
 logmodel2pts <- logmodel2pts[RASTERVALU != -9999,]
+
+# load data from 7/10 run
+lf <- fread(file = 'C:/Users/stearns7/OneDrive - UW Office 365/ntds/LF/mbg_stuff/investigations/prediction_v_raw/7_10_2017_run/input_data.csv', stringsAsFactors = F)
+lf_pts <- lf[point==1,]
+
+
+#load raster from 7/10 run
 
 # -------------------------------------- quick viz for f3 mtg 6/21 -------------------------
 

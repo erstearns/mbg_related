@@ -9,7 +9,7 @@ rm(list = ls())
 # ------------------------------------------- set up environment -------------------------------------------
 my_lib <- ("C:/Users/stearns7/Documents/R/win-library/3.3")
 .libPaths(my_lib)
-pacman::p_load(fields, data.table, magrittr, stringr, reshape2, ggplot2, readbulk, 
+pacman::p_load(fields, data.table, magrittr, stringr, reshape2, ggplot2, readbulk, ggmap, devtools, scale,
                dplyr, Amelia, plyr, rgdal, raster,  seegSDM, seegMBG, sp, rgeos, maptools, rgeos, rgdal)
 
 latest_dir <- ('C:/Users/stearns7/OneDrive - UW Office 365/ntds/LF/data/processed_data/all')
@@ -18,19 +18,24 @@ data_dir <- ('C:/Users/stearns7/OneDrive - UW Office 365/ntds/LF/data/processed_
 
 #------------------------------------------ load data ----------------------------------------------------
 
-all <- fread(file = paste0(latest_dir, '/lf_data_5.22.csv'), stringsAsFactors = F) #9096 rows
+#all <- fread(file = paste0(latest_dir, '/lf_data_5.22.csv'), stringsAsFactors = F) #9096 rows
 #all <- all[,-c('V1')]
 
 #data from liz, cleaned up & points pushed to land 4.4.17 - 7246
-liz <- fread(file = 'C:/Users/stearns7/OneDrive - UW Office 365/ntds/LF/mbg_stuff/mbg_data/currently_in_use/lf_pos_4.18.csv', stringsAsFactors = F)
+#liz <- fread(file = 'C:/Users/stearns7/OneDrive - UW Office 365/ntds/LF/mbg_stuff/mbg_data/currently_in_use/lf_pos_4.18.csv', stringsAsFactors = F)
 #liz <- liz[,-c('V1')]
 
 #latest (6.1.17) -- liz recovered some rows missing year info
-all <- fread(file = paste0(latest_dir, '/lf_data_fin.csv'), stringsAsFactors = F) #9096 rows
+#all <- fread(file = paste0(latest_dir, '/lf_data_fin.csv'), stringsAsFactors = F) #9096 rows
 #all <- all[,-c('V1')]
 
 # latest clean lf dataset (as of 6/28/2017, last edited on 6/28/2017 at 14:17, assuming by Kevin)
+#all <- fread(paste0(data_dir, 'lf_data_fin.csv'), stringsAsFactors = F)
+
+# latest clean lf dataset (as of 7/18/2017, last edited on 7/12/2017 at 11:13(not by me))
 all <- fread(paste0(data_dir, 'lf_data_fin.csv'), stringsAsFactors = F)
+#all <- all[,-c('V1')]
+
 
 # ----------------------------------------- transform full dataset to MBG format -------------------------
 a <- copy(all)
